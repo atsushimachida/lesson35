@@ -2,26 +2,29 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>日報管理システム</title>
+    <title>従業員一覧</title>
     <link rel="stylesheet" th:href="@{/css/employee/index.css}">
 </head>
 <body>
-    <h1>日報管理システム</h1>
-    <h2>日報一覧(全件)</h2>
+    <h1>従業員一覧</h1>
+    <h2>従業員一覧(全件)</h2>
+   <form method="post" th:action="@{/logout}">
+        <input type="submit" value="ログアウト">
+    </form><br>
 
         <table>
         <tr>
             <th>ID</th>
+            <th>code</th>
             <th>名前</th>
-            <th>削除フラグ</th>
             <th>登録日時</th>
             <th>更新日時</th>
             <th>操作</th>
         </tr>
-        <tr th:each="employee : ${EmployeeList}">
+        <tr th:each="employee:${EmployeeList}">
             <td th:text="${employee.id}"></td>
+            <td th:text="${authentication.code}"></td>
             <td th:text="${employee.name}"></td>
-            <td th:text="${employee.delete_flag}"></td>
             <td th:text="${employee.createdAt}"></td>
             <td th:text="${employee.updatedAt}"></td>
             <td>

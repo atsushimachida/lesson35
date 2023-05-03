@@ -13,6 +13,10 @@ import javax.persistence.OneToOne;
 import lombok.Data;
 import java.sql.Date;
 import java.time.LocalDateTime;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+
 
 @Data
 @Entity
@@ -29,10 +33,14 @@ public class Authentication {
 
     /** password。255桁。null不許可 */
     @Column(length = 255, nullable = false)
+    @NotNull
+    @NotEmpty
     private String password;
 
     /** 権限 */
     @Column(length = 10, nullable = false)
+    @NotNull
+    @NotEmpty
     @Enumerated(EnumType.STRING)
     private Role role;
 

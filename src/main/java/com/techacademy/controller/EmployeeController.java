@@ -6,6 +6,8 @@ import java.util.Set;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,7 +28,13 @@ public class EmployeeController {
    }
 
     // --- 一覧画面 ---
-    @GetMapping("/")
+
+   @GetMapping("/")
+   public String gettop() {
+       return"/employee/top";
+   }
+
+    @GetMapping("/index")
     public String getIndex(Model model) {
         //全件検索をModelに登録
         model.addAttribute("EmployeeList",service.getEmployeeList());
@@ -83,7 +91,7 @@ public class EmployeeController {
        tableEmployee.getAuthentication().setPassword(employee.getAuthentication().getPassword());
        tableEmployee.getAuthentication().setRole(employee.getAuthentication().getRole());
        service.saveEmployee(tableEmployee);
-       return"redirect:/";
+       return"redirect:/index";
     }
 
    /** 削除処理　*/
@@ -91,7 +99,7 @@ public class EmployeeController {
    public String deleteEmployee(@PathVariable("id") Integer id , Model model) {
        //一括削除
        service.deleteEmployee(id);
-       return "redirect:/";
+       return "redirect:/index";
    }
 
 }

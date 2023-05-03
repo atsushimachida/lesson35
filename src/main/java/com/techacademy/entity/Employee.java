@@ -12,6 +12,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.PreRemove;
 import javax.persistence.Table;
 import javax.transaction.Transactional;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Where;
 
@@ -31,6 +33,8 @@ public class Employee {
 
     /** 名前。20桁。null不許可 */
     @Column(length = 20, nullable = false)
+    @NotNull
+    @NotEmpty
     private String name;
 
 
@@ -48,8 +52,6 @@ public class Employee {
 
     @OneToOne(mappedBy="employee",cascade = CascadeType.ALL)
     private Authentication authentication;
-
-    /** レコードが削除される前に行う処理*/
 
 
 
