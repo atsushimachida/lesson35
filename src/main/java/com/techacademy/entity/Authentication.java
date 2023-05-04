@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Data
 @Entity
@@ -35,18 +35,18 @@ public class Authentication {
     @Column(length = 255, nullable = false)
     @NotNull
     @NotEmpty
+    @Autowired
     private String password;
 
     /** 権限 */
     @Column(length = 10, nullable = false)
     @NotNull
-    @NotEmpty
     @Enumerated(EnumType.STRING)
     private Role role;
 
     /** 従業員id */
     @OneToOne
-    @JoinColumn(name = "employee_id", referencedColumnName = "id")
+    @JoinColumn(name = "employee_id")
     private Employee employee;
 
 }

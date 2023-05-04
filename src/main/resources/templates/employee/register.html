@@ -8,8 +8,8 @@
 
 <body>
     <h1>従業員 新規登録ページ</h1>
-
     <form method ="post" th:action="@{/employee/register}" th:object="${employee}">
+
     <label for="code"> 社員番号 </label>
     <input type = "text" th:field="*{authentication.code}">
     <br>
@@ -27,7 +27,7 @@
     <br>
     <input type ="submit" value="投稿">
     </form>
-    <a th:href ="@{/}">一覧に戻る</a>
+    <a th:href ="@{/employee/index}">一覧に戻る</a>
 
 </body>
 </html>

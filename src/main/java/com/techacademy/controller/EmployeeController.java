@@ -16,15 +16,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.techacademy.entity.Authentication;
 import com.techacademy.entity.Employee;
+import com.techacademy.service.AuthenticationService;
 import com.techacademy.service.EmployeeService;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.validation.FieldError;
 
 
 @Controller
 public class EmployeeController {
    private final EmployeeService service;
-   public EmployeeController(EmployeeService service) {
+   private final AuthenticationService authService;
+   public EmployeeController(EmployeeService service,AuthenticationService authService) {
        this.service = service;
+       this.authService = authService;
    }
 
     // --- 一覧画面 ---
@@ -34,7 +38,7 @@ public class EmployeeController {
        return"/employee/top";
    }
 
-    @GetMapping("/index")
+    @GetMapping("/employee/index")
     public String getIndex(Model model) {
         //全件検索をModelに登録
         model.addAttribute("EmployeeList",service.getEmployeeList());
@@ -52,15 +56,19 @@ public class EmployeeController {
 
     /** employee登録処理 */
     @PostMapping("/employee/register")
-    public String postRegister(Employee employee){
+    public String postRegister(@Validated Employee employee,BindingResult res,Model model){
+    Employee employeecode = authService.getEmployeeCode(employee.getAuthentication().getCode());
+        if(res.hasErrors()||employeecode !=null) {
+            return getRegister(employee);
+        }
         LocalDateTime dateTime = LocalDateTime.now();
         employee.setCreatedAt(dateTime);
         employee.setUpdatedAt(dateTime);
         employee.getAuthentication().setEmployee(employee);
         employee.setDelete_flag(0);
         service.saveEmployee(employee);
-        return "redirect:/";
-    }
+        return "redirect:/employee/index";
+        }
 
     /** 従業員詳細画面を表示　 */
     @GetMapping("/employee/detail/{id}/")
@@ -91,7 +99,7 @@ public class EmployeeController {
        tableEmployee.getAuthentication().setPassword(employee.getAuthentication().getPassword());
        tableEmployee.getAuthentication().setRole(employee.getAuthentication().getRole());
        service.saveEmployee(tableEmployee);
-       return"redirect:/index";
+       return"redirect:/employee/index";
     }
 
    /** 削除処理　*/
@@ -99,7 +107,7 @@ public class EmployeeController {
    public String deleteEmployee(@PathVariable("id") Integer id , Model model) {
        //一括削除
        service.deleteEmployee(id);
-       return "redirect:/index";
+       return "redirect:employee/index";
    }
 
 }

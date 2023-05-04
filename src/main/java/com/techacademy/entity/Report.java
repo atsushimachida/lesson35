@@ -8,6 +8,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PreRemove;
@@ -16,33 +18,41 @@ import javax.transaction.Transactional;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.Where;
+import org.hibernate.annotations.Type;
+import org.springframework.format.annotation.DateTimeFormat;
+
 
 import lombok.Data;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
 @Entity
-@Table(name = "Employee")
-@Where(clause = "delete_flag = 0")
-public class Employee {
+@Table(name = "Report")
+
+public class Report {
 
     /** 主キー。自動生成 */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    /** 名前。20桁。null不許可 */
-    @Column(length = 20, nullable = false)
-    @NotNull
-    @NotEmpty
-    private String name;
-
-
-    /** 削除フラグ　*/
+    /** 日報の日付　*/
     @Column
-    private Integer delete_flag;
+    @DateTimeFormat(pattern ="yyyy-MM-dd")
+    private LocalDate reportdate;
+
+    /** タイトル　*/
+    @Column
+    private String title;
+
+    /** 日報の内容　*/
+    @Column(nullable = false)
+    @Type(type="text")
+    private String content;
+
 
     /** 登録日時　*/
     @Column
@@ -52,11 +62,9 @@ public class Employee {
     @Column
     private LocalDateTime updatedAt;
 
-    @OneToOne(mappedBy="employee",cascade = CascadeType.ALL)
-    private Authentication authentication;
-
-    @OneToMany(mappedBy="employee",cascade = CascadeType.ALL)
-    private List<Report> reports;
-
+    /** 従業員id */
+    @ManyToOne
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
 }
 

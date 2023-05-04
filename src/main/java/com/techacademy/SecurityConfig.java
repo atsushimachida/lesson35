@@ -24,6 +24,7 @@ public class SecurityConfig {
         ).authorizeHttpRequests(auth -> auth
             .requestMatchers(PathRequest.toStaticResources().atCommonLocations())
                 .permitAll()                 // css等は未ログインでアクセス可
+            .mvcMatchers("/employee/**").hasAuthority("管理者")
             .anyRequest().authenticated()    // その他はログイン必要
         );
 

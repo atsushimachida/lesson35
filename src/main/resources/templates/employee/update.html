@@ -5,6 +5,7 @@
     <title>従業員編集ページ</title>
     <link rel="stylesheet" th:href="@{/css/employee/update.css}">
 </head>
+
 <body>
     <h1>従業員編集ページ</h1>
     <p>(パスワードは変更する場合のみ入力してください) </p>
@@ -16,9 +17,10 @@
         <input type="text" th:field="*{name}">
         <br>
         <label for="password">パスワード</label>
-        <input type="text"  th:field="">
+        <input type="password" th:password="*{authentication.password}" >
         <br>
         <label for="role">権限</label>
+        <select>
             <option value="" th:text="選択してください">
             <option th:each="item:${T(com.techacademy.entity.Authentication.Role).values()}" th:value="${item}" th:text="${item}" th:selected="*{authentication.role} == ${item}">
         </select>
@@ -28,7 +30,6 @@
 　   </form>
        <a  th:href="@{/employee/delete/{id}/(id=${employee.id})}" > このユーザー情報を削除する </a>
  　　 <br>
-        <a th:href="@{/}">一覧に戻る</a>
-
+        <a th:href="@{/employee/index}">一覧に戻る</a>
 </body>
 </html>

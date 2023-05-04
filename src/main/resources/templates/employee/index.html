@@ -23,7 +23,7 @@
         </tr>
         <tr th:each="employee:${EmployeeList}">
             <td th:text="${employee.id}"></td>
-            <td th:text="${authentication.code}"></td>
+            <td th:text="${employee.authentication.code}"></td>
             <td th:text="${employee.name}"></td>
             <td th:text="${employee.createdAt}"></td>
             <td th:text="${employee.updatedAt}"></td>
