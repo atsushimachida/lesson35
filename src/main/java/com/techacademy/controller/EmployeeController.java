@@ -27,6 +27,7 @@ import org.springframework.validation.FieldError;
 public class EmployeeController {
    private final EmployeeService service;
    private final AuthenticationService authService;
+
    public EmployeeController(EmployeeService service,AuthenticationService authService) {
        this.service = service;
        this.authService = authService;
@@ -97,8 +98,13 @@ public class EmployeeController {
        LocalDateTime updatetime = LocalDateTime.now();
        tableEmployee.setUpdatedAt(updatetime);
        tableEmployee.setName(employee.getName());
-       tableEmployee.getAuthentication().setPassword(employee.getAuthentication().getPassword());
-       tableEmployee.getAuthentication().setRole(employee.getAuthentication().getRole());
+       String emppass = employee.getAuthentication().getPassword();
+       if(emppass == null || emppass.equals("")) {
+           tableEmployee.getAuthentication().setRole(employee.getAuthentication().getRole());
+           service.saveEmployee(tableEmployee);
+           return"redirect:/employee/index";
+       }
+       employee.getAuthentication().setPassword(emppass);
        service.saveEmployee(tableEmployee);
        return"redirect:/employee/index";
     }
