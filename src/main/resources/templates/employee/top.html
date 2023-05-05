@@ -6,6 +6,11 @@
 </head>
 <body>
     <h1>日報管理システム</h1>
+    <form method="post" th:action="@{/logout}">
+        <input type="submit" value="ログアウト">
+    </form>
+
+     <a th:href ="@{/employee/index}">従業員一覧をみる</a>
 </body>
 </html>
 
