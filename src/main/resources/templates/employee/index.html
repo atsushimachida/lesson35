@@ -7,12 +7,12 @@
 </head>
 <body>
     <h1>従業員一覧</h1>
-    <h2>従業員一覧(全件)</h2>
+    <h2>従業員一覧</h2>
    <form method="post" th:action="@{/logout}">
         <input type="submit" value="ログアウト">
     </form><br>
 
-        <table>
+    <table>
         <tr>
             <th>ID</th>
             <th>code</th>
@@ -21,7 +21,7 @@
             <th>更新日時</th>
             <th>操作</th>
         </tr>
-        <tr th:each="employee:${EmployeeList}">
+        <tr th:each="employee,index:${EmployeeList}" >
             <td th:text="${employee.id}"></td>
             <td th:text="${employee.authentication.code}"></td>
             <td th:text="${employee.name}"></td>
@@ -30,10 +30,10 @@
             <td>
                 <a th:href="@{/employee/detail/{id}/(id=${employee.id})}">詳細を見る</a>
             </td>
-        </tr>
+          </tr>
     </table>
-
-   <a th:href="@{/employee/register}">新規従業員の登録</a>
+    <p>全<span th:text="${#lists.size(EmployeeList)}"></span>件</p>
+     <a th:href="@{/employee/register}">新規従業員の登録</a>
 
 </body>
 

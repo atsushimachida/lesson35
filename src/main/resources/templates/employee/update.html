@@ -7,7 +7,7 @@
 </head>
 
 <body>
-    <h1>従業員編集ページ</h1>
+    <h1>id[[${employee.id}]]の従業員編集ページ</h1>
     <p>(パスワードは変更する場合のみ入力してください) </p>
     <form method="post" th:action="@{/employee/update/{id}/(id=${employee.id})}" th:object="${employee}">
         <label for="code">社員番号</label>
