@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,6 +29,9 @@ import org.springframework.validation.FieldError;
 public class EmployeeController {
    private final EmployeeService service;
    private final AuthenticationService authService;
+
+@Autowired
+private PasswordEncoder passwordEncorder;
 
    public EmployeeController(EmployeeService service,AuthenticationService authService) {
        this.service = service;
@@ -67,6 +72,7 @@ public class EmployeeController {
         employee.setCreatedAt(dateTime);
         employee.setUpdatedAt(dateTime);
         employee.getAuthentication().setEmployee(employee);
+        employee.getAuthentication().setPassword(passwordEncorder.encode(employee.getAuthentication().getPassword()));
         employee.setDelete_flag(0);
         service.saveEmployee(employee);
         return "redirect:/employee/index";
@@ -105,6 +111,7 @@ public class EmployeeController {
            return"redirect:/employee/index";
        }
        employee.getAuthentication().setPassword(emppass);
+       tableEmployee.getAuthentication().setPassword(passwordEncorder.encode(emppass));
        service.saveEmployee(tableEmployee);
        return"redirect:/employee/index";
     }
