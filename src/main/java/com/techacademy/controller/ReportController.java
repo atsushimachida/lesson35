@@ -32,7 +32,7 @@ public class ReportController {
 
     // --- 一覧画面 ---
 
-    @GetMapping("/employee/reportindex")
+    @GetMapping("/reportindex")
     public String getIndex(Model model) {
         //全件検索をModelに登録
         model.addAttribute("ReportList",service.getReportList());

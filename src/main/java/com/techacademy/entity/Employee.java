@@ -58,5 +58,10 @@ public class Employee {
     @OneToMany(mappedBy="employee",cascade = CascadeType.ALL)
     private List<Report> reports;
 
+    public void setCreatedAt(LocalDateTime dateTime) {
+        // TODO 自動生成されたメソッド・スタブ
+        
+    }
+
 }
 

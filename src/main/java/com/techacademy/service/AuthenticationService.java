@@ -1,6 +1,8 @@
 package com.techacademy.service;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 import com.techacademy.entity.Authentication;
 import com.techacademy.entity.Employee;
@@ -16,8 +18,8 @@ public class AuthenticationService {
     }
 
     /** Employeeを検索して返す　*/
-    public Employee getEmployeeCode(String code) {
-        return authenticationRepository.findById(code).get().getEmployee();
+    public Optional<Authentication> getEmployeeCode(String code) {
+        return authenticationRepository.findById(code);
     }
 
 

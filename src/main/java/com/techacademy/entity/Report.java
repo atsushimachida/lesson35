@@ -62,9 +62,9 @@ public class Report {
     @Column
     private LocalDateTime updatedAt;
 
-    /** 従業員id */
+    /** 日報id */
     @ManyToOne
-    @JoinColumn(name = "employee_id")
+    @JoinColumn(name = "employee_id",referencedColumnName="id")
     private Employee employee;
 }
 

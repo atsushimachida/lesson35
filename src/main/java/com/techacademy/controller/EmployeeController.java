@@ -2,6 +2,7 @@ package com.techacademy.controller;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.stereotype.Controller;
@@ -57,8 +58,8 @@ public class EmployeeController {
     /** employee登録処理 */
     @PostMapping("/employee/register")
     public String postRegister(@Validated Employee employee,BindingResult res,Model model){
-    Employee employeecode = authService.getEmployeeCode(employee.getAuthentication().getCode());
-        if(res.hasErrors()||employeecode !=null) {
+        Optional<Authentication> employeecode = authService.getEmployeeCode(employee.getAuthentication().getCode());
+        if(res.hasErrors()||employeecode.isPresent()) {
             return getRegister(employee);
         }
         LocalDateTime dateTime = LocalDateTime.now();

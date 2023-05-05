@@ -21,7 +21,7 @@
             <th>更新日時</th>
             <th>操作</th>
         </tr>
-        <tr th:each="employee,index:${EmployeeList}" >
+        <tr th:each="employee:${EmployeeList}" >
             <td th:text="${employee.id}"></td>
             <td th:text="${employee.authentication.code}"></td>
             <td th:text="${employee.name}"></td>

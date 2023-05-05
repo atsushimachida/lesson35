@@ -22,7 +22,7 @@ public class EmployeeDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<Authentication> authentication = authenticationRepository.findById(username);
-
+        
         if (!authentication.isPresent()) {
             throw new UsernameNotFoundException("Exception:Username Not Found");
         }
