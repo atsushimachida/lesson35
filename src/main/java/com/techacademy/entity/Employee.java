@@ -18,6 +18,8 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Where;
 
+import com.techacademy.service.EmployeeDetail;
+
 import lombok.Data;
 import java.time.LocalDateTime;
 import java.util.List;

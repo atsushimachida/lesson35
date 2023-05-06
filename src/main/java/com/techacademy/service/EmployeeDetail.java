@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.techacademy.entity.Employee;
+import com.techacademy.entity.Report;
 
 
 public class EmployeeDetail implements UserDetails {
@@ -26,11 +27,11 @@ public class EmployeeDetail implements UserDetails {
         this.authorities = authorities;
     }
 
-
     public Employee getEmployee() {
         return employee;
     }
 
+    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
     }
@@ -44,6 +45,7 @@ public class EmployeeDetail implements UserDetails {
     public String getUsername() {
         return employee.getName();
     }
+
 
     public String getEmployeeCode() {
         return employee.getAuthentication().getCode();

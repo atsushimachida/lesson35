@@ -2,8 +2,13 @@ package com.techacademy.controller;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,7 +21,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.techacademy.entity.Authentication;
 import com.techacademy.entity.Employee;
+import com.techacademy.entity.Report;
 import com.techacademy.service.AuthenticationService;
+import com.techacademy.service.EmployeeDetail;
 import com.techacademy.service.EmployeeService;
 import com.techacademy.service.ReportService;
 
@@ -37,6 +44,47 @@ public class ReportController {
         //全件検索をModelに登録
         model.addAttribute("ReportList",service.getReportList());
         // index.htmlに遷移
-        return"employee/report/index";
+        return"/report/reportindex";
+    }
+
+    /** 登録画面を表示*/
+    @GetMapping("/report/reportregister")
+    public String getRegister(@ModelAttribute Report report) {
+        //登録画面に遷移
+        return "report/reportregister";
+    }
+
+    /** report登録処理 */
+    @PostMapping("/reportregister")
+    public String postRegister(@Validated Report report,BindingResult res,@AuthenticationPrincipal EmployeeDetail employeeDetail){
+        if(res.hasErrors()) {
+            return getRegister(report);
+        }
+        Employee loginemp = employeeDetail.getEmployee();
+       report.setEmployee(loginemp);
+        LocalDateTime dateTime = LocalDateTime.now();
+        report.setCreatedAt(dateTime);
+        report.setUpdatedAt(dateTime);
+        service.saveReport(report);
+        return "redirect:/reportindex";
+        }
+
+    /** report詳細画面を表示　 */
+    @GetMapping("/reportdetail/{id}/")
+    public String getReportdetail(@PathVariable("id")Integer id,@AuthenticationPrincipal EmployeeDetail employeeDetail,Model model){
+        Report tableReport = service.getReport(id);
+        model.addAttribute("reportdetail",tableReport);
+        //詳細画面に遷移
+        return "report/reportdetail";
+    }
+
+    /** report更新画面を表示　 */
+    @GetMapping("/reportupdate/{id}/")
+    public String getReport(@PathVariable("id")Integer id,Model model){
+     Report tableReport = service.getReport(id);
+        //Modelに登録
+        model.addAttribute("reportdetail",tableReport);
+        //更新画面に遷移
+        return "report/reportupdate";
     }
 }

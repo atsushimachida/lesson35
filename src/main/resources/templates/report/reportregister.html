@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>日報 新規登録ページ</title>
+    <link rel="stylesheet" th:href="@{/css/emploee/reportregister.css}">
+</head>
+
+<body>
+    <h1>日報新規登録ページ</h1>
+    <form method ="post" th:action="@{/reportregister}" th:object="${report}">
+
+    <label for= "report_date">氏名 </label>
+    <input type = "date" th:field= "*{report_date}">
+    <br>
+    <label for= "name">氏名 </label>
+    <input type = "text" th:field= "*{employee.name}">
+    <br>
+    <label for="title"> タイトル </label>
+    <input type = "text" th:field="*{title}">
+    <br>
+    <label for="name"> 内容 </label>
+    <input type = "text" th:field="*{content}">
+    <br>
+    <input type ="submit" value="投稿">
+    </form>
+    <a th:href ="@{/reportindex}"> 日報一覧に戻る </a>
+</body>
+</html>

@@ -42,7 +42,7 @@ public class Report {
     /** 日報の日付　*/
     @Column
     @DateTimeFormat(pattern ="yyyy-MM-dd")
-    private LocalDate reportdate;
+    private LocalDate report_date;
 
     /** タイトル　*/
     @Column
