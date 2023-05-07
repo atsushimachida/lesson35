@@ -37,7 +37,7 @@ public class ReportController {
        this.service = service;
    }
 
-    // --- 一覧画面 ---
+    // ---　全員のレポート一覧画面 ---
 
     @GetMapping("/reportindex")
     public String getIndex(Model model) {
@@ -86,5 +86,18 @@ public class ReportController {
         model.addAttribute("reportdetail",tableReport);
         //更新画面に遷移
         return "report/reportupdate";
+    }
+
+    /** report更新処理 */
+    @PostMapping("/reportupdate/{id}/")
+    public String postReport(@PathVariable("id")Integer id ,Report reportdetail,Model model) {
+        Report tableReport = service.getReport(id);
+        LocalDateTime updatetime = LocalDateTime.now();
+        tableReport.setReport_date(reportdetail.getReport_date());
+        tableReport.setUpdatedAt(updatetime);
+        tableReport.setTitle(reportdetail.getTitle());
+        tableReport.setContent(reportdetail.getContent());
+        service.saveReport(tableReport);
+        return"redirect:/reportindex";
     }
 }

@@ -11,10 +11,10 @@
     <form method ="post" th:action="@{/reportregister}" th:object="${report}">
 
     <label for= "report_date">氏名 </label>
-    <input type = "date" th:field= "*{report_date}">
+    <input type = "date" th:field= "*{report_date}" >
     <br>
     <label for= "name">氏名 </label>
-    <input type = "text" th:field= "*{employee.name}">
+    <input type = "text" th:field= "*{employee.name}" >
     <br>
     <label for="title"> タイトル </label>
     <input type = "text" th:field="*{title}">

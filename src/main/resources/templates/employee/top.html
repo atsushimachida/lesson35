@@ -6,11 +6,13 @@
 </head>
 <body>
     <h1>日報管理システムへようこそ</h1>
+    <p>【自分の日報一覧】</p>
+
     <form method="post" th:action="@{/logout}">
         <input type="submit" value="ログアウト">
     </form>
 
-     <a th:href ="@{/employee/index}">従業員一覧をみる</a>
+    <a th:href="@{/report/reportregister}">新規日報の登録</a>
 </body>
 </html>
 
