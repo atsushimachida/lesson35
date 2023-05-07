@@ -12,7 +12,7 @@
     <form method="post" th:action="@{/reportupdate/{id}/(id=${reportdetail.id})}" th:object="${reportdetail}">
 
      <label for="report_date">日報日付</label>
-     <input type="date" name=“report_date“ th:date="*{report_date}" th:value="*{report_date}">
+     <input type="date" name="report_date"  th:filed="*{report_date}" th:value="*{report_date}">
      <br>
      <label for="name">氏名 </label>
      <input type="text" th:field="*{employee.name}">

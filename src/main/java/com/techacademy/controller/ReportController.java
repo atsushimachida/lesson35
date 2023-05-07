@@ -49,7 +49,9 @@ public class ReportController {
 
     /** 登録画面を表示*/
     @GetMapping("/report/reportregister")
-    public String getRegister(@ModelAttribute Report report) {
+    public String getRegister(@AuthenticationPrincipal EmployeeDetail employeeDetail,Report report) {
+        Employee loginemp = employeeDetail.getEmployee();
+        report.setEmployee(loginemp);
         //登録画面に遷移
         return "report/reportregister";
     }
@@ -58,7 +60,7 @@ public class ReportController {
     @PostMapping("/reportregister")
     public String postRegister(@Validated Report report,BindingResult res,@AuthenticationPrincipal EmployeeDetail employeeDetail){
         if(res.hasErrors()) {
-            return getRegister(report);
+            return getRegister(employeeDetail, report);
         }
         Employee loginemp = employeeDetail.getEmployee();
        report.setEmployee(loginemp);
