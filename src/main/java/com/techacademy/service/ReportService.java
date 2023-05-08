@@ -37,4 +37,9 @@ public class ReportService {
     public Report getReport(Integer id) {
         return reportRepository.findById(id).get();
     }
+
+    /** Employeeで該当レポートを検索して返す　*/
+    public List<Report> getReportALL(Employee employee) {
+        return reportRepository.findByEmployee(employee);
+    }
 }

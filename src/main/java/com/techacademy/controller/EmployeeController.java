@@ -37,13 +37,8 @@ private PasswordEncoder passwordEncorder;
        this.service = service;
        this.authService = authService;
    }
-
     // --- 一覧画面 ---
 
-   @GetMapping("/")
-   public String gettop() {
-       return"/employee/top";
-   }
 
     @GetMapping("/employee/index")
     public String getIndex(Model model) {

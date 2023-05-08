@@ -37,6 +37,14 @@ public class ReportController {
        this.service = service;
    }
 
+
+   // ---　ログイン者のレポート一覧画面 ---
+
+   @GetMapping("/")
+   public String gettop(@AuthenticationPrincipal EmployeeDetail employeeDetail,Model model) {
+       model.addAttribute("empreportlist",service.getReportALL(employeeDetail.getEmployee()));
+            return"report/top";
+   }
     // ---　全員のレポート一覧画面 ---
 
     @GetMapping("/reportindex")
