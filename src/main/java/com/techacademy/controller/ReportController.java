@@ -52,7 +52,7 @@ public class ReportController {
         //全件検索をModelに登録
         model.addAttribute("ReportList",service.getReportList());
         // index.htmlに遷移
-        return"/report/reportindex";
+        return"report/reportindex";
     }
 
     /** 登録画面を表示*/
